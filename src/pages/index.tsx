@@ -51,7 +51,7 @@ export default function Home() {
     }
   };
 
-  const onInvalid = (errors) => {
+  const onInvalid = (errors: any) => {
     setShowCardData(false);
     console.log(errors);
   };
@@ -59,7 +59,7 @@ export default function Home() {
   // fungsi untuk verifikasi data - data form sudah sesuai format
   const validateForm = () => {
     const letters = /^[A-Za-z ]+$/;
-    const name = document.getElementById("name");
+    const name = document.getElementById("name") as HTMLInputElement;
 
     if (name.value.match(letters)) {
       return true;
@@ -257,7 +257,7 @@ export default function Home() {
           <p
             className={`text-center font-bold text-gray-500 ${spaceG_500.variable} font-spaceGrotesque_500`}
           >
-            We've added your card details
+            We&apos;ve added your card details
           </p>
           <button
             onClick={handleCardDetailsFinish}

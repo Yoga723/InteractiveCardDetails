@@ -7,7 +7,7 @@ import { spaceG_500 } from "../styles/fontsSettings";
 const MobileCard = ({
   dataForm: { name, cardNumber, dateMonth, dateYear, CVC },
   showCardData,
-}) => {
+}: any) => {
   const cardNumberSpaced = () => {
     if (cardNumber) {
       return cardNumber.match(/.{1,4}/g).join(" ");

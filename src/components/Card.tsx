@@ -8,10 +8,11 @@ import { useEffect } from "react";
 const Card = ({
   dataForm: { name, cardNumber, dateMonth, dateYear, CVC },
   showCardData,
-}) => {
+}: any) => {
   const cardNumberSpaced = () => {
     if (cardNumber) {
       const cardNumberGanti = cardNumber.match(/.{1,4}/g).join(" "); // Make Regex. Masih bingung cara kerjana, tapi ges tiap 4 number di tambah " " spasi
+      console.log(cardNumberGanti);
       return cardNumberGanti;
     } else {
       console.log("failed");
@@ -19,13 +20,14 @@ const Card = ({
     }
   };
 
-  // run cardNumberSpaced function when showCardData value change
+  // this useEffect actually unnecessary and can be removed safely, but i will just keep this one here 
+  // run cardNumberSpaced function when showCardData and cardNumberSpaced value change
   useEffect(() => {
     if (showCardData) {
       cardNumberSpaced();
     }
-  }, [showCardData]);
-  
+  }, [showCardData, cardNumberSpaced]);
+
   return (
     <div className="w-fit h-fit items-center justify-center text-black z-10 relative left-36 top-24 ">
       {/* front card */}
