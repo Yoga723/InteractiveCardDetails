@@ -3,10 +3,9 @@ import BGPictureDesktop from "../../public/images/bg-main-desktop.png";
 import BGPictureMobile from "../../public/images/bg-main-mobile.png";
 import SuccessIcon from "../../public/images/Check.png";
 import { spaceG_500 } from "../styles/fontsSettings";
-import { Card, MobileCard } from "../components";
+import { Card, MobileCard, Footer } from "../components";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import MobileCard from "@/components/MobileCard";
 import { error } from "console";
 
 export default function Home() {
@@ -75,6 +74,19 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-screen md:min-h-screen bg-white relative">
+      <head>
+        <title>
+          Interactive Cards Detail with Next JS and Tailwind - Yoga723
+        </title>
+        <meta
+          name="description"
+          content="a simple cards that show data from form, created by Yoga723"
+        />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        />
+      </head>
       {/* background */}
       {windowSizeIs.widht > 650 ? (
         <Image
@@ -116,7 +128,7 @@ export default function Home() {
             {/* cardholder name wrapper */}
             <div className="mb-4">
               <label
-                className={`text-black text-xs md:text-base font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
+                className={`text-black text-xs md:text-sm font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
               >
                 CARDHOLDER NAME
               </label>{" "}
@@ -124,7 +136,7 @@ export default function Home() {
               <input
                 type="text"
                 id="name"
-                className={`border-2 border-gray-300 rounded-md md:rounded-lg px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500 uppercase`}
+                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500 uppercase`}
                 placeholder="e.g Yoga Pangestu"
                 {...register("name", {
                   required: true,
@@ -139,7 +151,7 @@ export default function Home() {
             {/* Card Number wrapper */}
             <div>
               <label
-                className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                className={`text-black text-xs md:text-sm mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
               >
                 CARD NUMBER
               </label>{" "}
@@ -148,7 +160,7 @@ export default function Home() {
                 id="cardNumber"
                 placeholder="e.g 1234 5678 9123 0000"
                 maxLength={16}
-                className={`border-2 border-gray-300 rounded-md md:rounded-lg px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
                 {...register("cardNumber", {
                   required: true,
                   minLength: 16,
@@ -166,7 +178,7 @@ export default function Home() {
               {/* Expire Date */}
               <div className="">
                 <label
-                  className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
+                  className={`text-black text-xs md:text-sm mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
                 >
                   EXP.DATE (MM/YY)
                 </label>{" "}
@@ -176,7 +188,7 @@ export default function Home() {
                   id="dateMonth"
                   placeholder="03"
                   maxLength={2}
-                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg mr-2 font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg mr-2 font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
                   {...register("dateMonth", {
                     required: true,
                     minLength: 2,
@@ -189,7 +201,7 @@ export default function Home() {
                   id="dateYear"
                   placeholder="07"
                   maxLength={2}
-                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
                   {...register("dateYear", {
                     required: true,
                     minLength: 2,
@@ -206,9 +218,9 @@ export default function Home() {
               </div>
 
               {/* CVC */}
-              <div className="ml-4 md:mt-5">
+              <div className="ml-4 ">
                 <label
-                  className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  className={`text-black text-xs md:text-sm mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
                 >
                   CVC
                 </label>{" "}
@@ -218,7 +230,7 @@ export default function Home() {
                   id="CVC"
                   placeholder="e.g. 123"
                   maxLength={4}
-                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-10/12 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-10/12 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
                   {...register("CVC", {
                     required: true,
                     maxLength: 4,
@@ -267,6 +279,7 @@ export default function Home() {
           </button>
         </div>
       )}
+      <Footer />
     </main>
   );
 }
