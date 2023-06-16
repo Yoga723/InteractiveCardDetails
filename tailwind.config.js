@@ -12,6 +12,9 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        spaceGrotesque_500: ["var(--font-space-500)"],
+      }
     },
   },
   plugins: [],

@@ -1,124 +1,272 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Image from "next/image";
+import BGPictureDesktop from "../../public/images/bg-main-desktop.png";
+import BGPictureMobile from "../../public/images/bg-main-mobile.png";
+import SuccessIcon from "../../public/images/Check.png";
+import { spaceG_500 } from "../styles/fontsSettings";
+import { Card, MobileCard } from "../components";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+// import MobileCard from "@/components/MobileCard";
+import { error } from "console";
 
 export default function Home() {
+  const useWindowSize = () => {
+    const [windowSize, setWindowSize] = useState({
+      heigth: 0,
+      widht: 0,
+    });
+
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          heigth: window.innerHeight,
+          widht: window.innerWidth,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowSize;
+  };
+  const windowSizeIs = useWindowSize();
+
+  const {
+    register,
+    watch,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+  const [showCardData, setShowCardData] = useState(false);
+  const formData = watch();
+  const getFormData = getValues();
+
+  // handleSubmit dapat data dari ...register --> simpan di submittedData, di submittedData ges aya data formna jeng bisa nyien kondisi men data ges diterima jiga make show dihandap ie --> tampilkan menggunakan watch atau formData
+  const submittedData = (cardData: any) => {
+    if (validateForm()) {
+      setShowCardData(true);
+    }
+  };
+
+  const onInvalid = (errors) => {
+    setShowCardData(false);
+    console.log(errors);
+  };
+
+  // fungsi untuk verifikasi data - data form sudah sesuai format
+  const validateForm = () => {
+    const letters = /^[A-Za-z ]+$/;
+    const name = document.getElementById("name");
+
+    if (name.value.match(letters)) {
+      return true;
+    } else {
+      alert("Name only accepts alphabet letters");
+      return false;
+    }
+  };
+
+  const handleCardDetailsFinish = () => {
+    setShowCardData(false);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+    <main className="flex flex-col h-screen md:min-h-screen bg-white relative">
+      {/* background */}
+      {windowSizeIs.widht > 650 ? (
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src={BGPictureDesktop}
+          alt="gradient background"
+          className="absolute w-2/6 lg:w-max z-1 h-screen overflow-hidden"
         />
-      </div>
+      ) : (
+        <Image
+          src={BGPictureMobile}
+          alt="gradient background"
+          className="absolute top-0 left-0 z-1 w-full overflow-hidden"
+        />
+      )}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      {/* cards */}
+      {windowSizeIs.widht > 650 ? (
+        <Card
+          dataForm={getFormData}
+          showCardData={showCardData}
+        />
+      ) : (
+        <MobileCard
+          dataForm={getFormData}
+          showCardData={showCardData}
+        />
+      )}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+      {/* Formulir dan confirmation */}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      {!showCardData ? (
+        <form
+          name="cardForm"
+          onSubmit={handleSubmit(submittedData, onInvalid)}
+          method="POST"
+          className="flex flex-col lg:w-3/12 lg:right-36 xl:right-80 md:top-1/3 md:absolute text-black p-5 md:p-0"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
+          <div className="flex flex-col ">
+            {/* cardholder name wrapper */}
+            <div className="mb-4">
+              <label
+                className={`text-black text-xs md:text-base font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
+              >
+                CARDHOLDER NAME
+              </label>{" "}
+              <br />
+              <input
+                type="text"
+                id="name"
+                className={`border-2 border-gray-300 rounded-md md:rounded-lg px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500 uppercase`}
+                placeholder="e.g Yoga Pangestu"
+                {...register("name", {
+                  required: true,
+                  pattern: /^[A-Za-z ]*/,
+                })}
+              />
+              {errors.name && (
+                <p className="text-red-700">Card Name only accept alphabet</p>
+              )}
+            </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
+            {/* Card Number wrapper */}
+            <div>
+              <label
+                className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+              >
+                CARD NUMBER
+              </label>{" "}
+              <br />
+              <input
+                id="cardNumber"
+                placeholder="e.g 1234 5678 9123 0000"
+                maxLength={16}
+                className={`border-2 border-gray-300 rounded-md md:rounded-lg px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                {...register("cardNumber", {
+                  required: true,
+                  minLength: 16,
+                  maxLength: 16,
+                  pattern: /^[0-9 ]+$/,
+                })}
+              />
+              {errors.cardNumber && (
+                <p className="text-red-700">Card Number Only Accept Numbers</p>
+              )}
+            </div>
+
+            {/* Date and CVC wrapper */}
+            <div className="flex flex-row">
+              {/* Expire Date */}
+              <div className="">
+                <label
+                  className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
+                >
+                  EXP.DATE (MM/YY)
+                </label>{" "}
+                <br />
+                <input
+                  type="text"
+                  id="dateMonth"
+                  placeholder="03"
+                  maxLength={2}
+                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg mr-2 font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  {...register("dateMonth", {
+                    required: true,
+                    minLength: 2,
+                    maxLength: 2,
+                    pattern: /^[0-9 ]+$/,
+                  })}
+                />
+                <input
+                  type="text"
+                  id="dateYear"
+                  placeholder="07"
+                  maxLength={2}
+                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-12 md:w-14 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  {...register("dateYear", {
+                    required: true,
+                    minLength: 2,
+                    maxLength: 2,
+                    pattern: /^[0-9 ]+$/,
+                  })}
+                />
+                {errors.dateMonth && (
+                  <p className="text-red-700">Accept Numbers Only</p>
+                )}
+                {errors.dateYear && (
+                  <p className="text-red-700">Accept Numbers Only</p>
+                )}
+              </div>
+
+              {/* CVC */}
+              <div className="ml-4 md:mt-5">
+                <label
+                  className={`text-black text-xs md:text-base mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                >
+                  CVC
+                </label>{" "}
+                <br />
+                <input
+                  type="text"
+                  id="CVC"
+                  placeholder="e.g. 123"
+                  maxLength={4}
+                  className={`border-2 border-gray-300 rounded-lg px-2 my-2 justify-center h-8 w-10/12 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  {...register("CVC", {
+                    required: true,
+                    maxLength: 4,
+                    pattern: /^[0-9 ]+$/,
+                  })}
+                />
+                {errors.CVC && (
+                  <p className="text-red-700">Accept Numbers Only</p>
+                )}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className={`rounded-md bg-[#220930] text-white text-lg h-9 my-5 w-11/12 font-medium ${spaceG_500.variable} font-spaceGrotesque_500 hover:bg-gradient-to-b from-[#220930] to-[#4c4652]`}
+            >
+              Confirm
+            </button>
+          </div>
+        </form>
+      ) : (
+        <div className="flex flex-col lg:w-3/12 lg:right-36 xl:right-80 md:top-1/3 md:absolute text-black p-5 md:p-0 items-center justify-center">
+          {/* Ikon Ceklist */}
+          <div className="">
+            <Image
+              src={SuccessIcon}
+              alt="success"
+              className="p-4"
+            />
+            <p
+              className={`text-center font-bold text-black ${spaceG_500.variable} font-spaceGrotesque_500 uppercase`}
+            >
+              THANK YOU !
+            </p>
+          </div>
           <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+            className={`text-center font-bold text-gray-500 ${spaceG_500.variable} font-spaceGrotesque_500`}
           >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            We've added your card details
           </p>
-        </a>
-      </div>
+          <button
+            onClick={handleCardDetailsFinish}
+            className={`rounded-md bg-[#220930] text-white text-lg h-9 my-5 w-11/12 font-medium ${spaceG_500.variable} font-spaceGrotesque_500 hover:bg-gradient-to-b from-[#220930] to-[#4c4652]`}
+          >
+            Continue
+          </button>
+        </div>
+      )}
     </main>
-  )
+  );
 }
