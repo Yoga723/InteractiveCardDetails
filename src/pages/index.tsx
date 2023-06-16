@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 import BGPictureDesktop from "../../public/images/bg-main-desktop.png";
 import BGPictureMobile from "../../public/images/bg-main-mobile.png";
@@ -74,7 +75,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-screen md:min-h-screen bg-white relative">
-      <head>
+      <Head>
         <title>
           Interactive Cards Detail with Next JS and Tailwind - Yoga723
         </title>
@@ -86,7 +87,7 @@ export default function Home() {
           name="viewport"
           content="initial-scale=1.0, width=device-width"
         />
-      </head>
+      </Head>
       {/* background */}
       {windowSizeIs.widht > 650 ? (
         <Image
@@ -122,11 +123,11 @@ export default function Home() {
           name="cardForm"
           onSubmit={handleSubmit(submittedData, onInvalid)}
           method="POST"
-          className="flex flex-col lg:w-3/12 lg:right-36 xl:right-80 md:top-1/3 md:absolute text-black p-5 md:p-0"
+          className="flex flex-col sm:w-3/12 lg:right-[7rem] xl:right-[15rem] md:top-1/3 md:absolute text-black p-5 md:p-0"
         >
           <div className="flex flex-col ">
             {/* cardholder name wrapper */}
-            <div className="mb-4">
+            <div className="mb-4 w-full ">
               <label
                 className={`text-black text-xs md:text-sm font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
               >
@@ -136,7 +137,7 @@ export default function Home() {
               <input
                 type="text"
                 id="name"
-                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500 uppercase`}
+                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-full text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500 uppercase `}
                 placeholder="e.g Yoga Pangestu"
                 {...register("name", {
                   required: true,
@@ -160,7 +161,7 @@ export default function Home() {
                 id="cardNumber"
                 placeholder="e.g 1234 5678 9123 0000"
                 maxLength={16}
-                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-11/12 text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
+                className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-full text-sm md:text-lg md:font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
                 {...register("cardNumber", {
                   required: true,
                   minLength: 16,
@@ -176,7 +177,7 @@ export default function Home() {
             {/* Date and CVC wrapper */}
             <div className="flex flex-row">
               {/* Expire Date */}
-              <div className="">
+              <div className="w-4/12">
                 <label
                   className={`text-black text-xs md:text-sm mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500 `}
                 >
@@ -218,7 +219,7 @@ export default function Home() {
               </div>
 
               {/* CVC */}
-              <div className="ml-4 ">
+              <div className="w-8/12">
                 <label
                   className={`text-black text-xs md:text-sm mb-2 font-bold ${spaceG_500.variable} font-spaceGrotesque_500`}
                 >
@@ -230,7 +231,7 @@ export default function Home() {
                   id="CVC"
                   placeholder="e.g. 123"
                   maxLength={4}
-                  className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center h-8 w-10/12 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
+                  className={`border-2 border-gray-300 rounded-md px-2 my-2 justify-center w-full h-8 text-sm md:text-lg font-medium ${spaceG_500.variable} font-spaceGrotesque_500`}
                   {...register("CVC", {
                     required: true,
                     maxLength: 4,
@@ -245,7 +246,7 @@ export default function Home() {
 
             <button
               type="submit"
-              className={`rounded-md bg-[#220930] text-white text-lg h-9 my-5 w-11/12 font-medium ${spaceG_500.variable} font-spaceGrotesque_500 hover:bg-gradient-to-b from-[#220930] to-[#4c4652]`}
+              className={`rounded-md bg-[#220930] text-white text-lg h-9 my-5 w-12/12 font-medium ${spaceG_500.variable} font-spaceGrotesque_500 hover:bg-gradient-to-b from-[#220930] to-[#4c4652]`}
             >
               Confirm
             </button>
